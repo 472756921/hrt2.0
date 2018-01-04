@@ -2,8 +2,8 @@
   <div class="layout">
     <Layout style="height: 100%">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
-        <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="1">
+        <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses" @on-select="go">
+          <MenuItem name="cour">
             <Icon type="flag"></Icon>
             <span>轮播管理</span>
           </MenuItem>
@@ -12,16 +12,21 @@
               <Icon type="ios-paper"></Icon>
               <span>公告管理</span>
             </template>
-            <MenuItem name="2-1"><Icon type="arrow-swap"></Icon><span>滚动公告</span></MenuItem>
-            <MenuItem name="2-1"><Icon type="videocamera"></Icon><span>直播公告</span></MenuItem>
-            <MenuItem name="2-2"><Icon type="briefcase"></Icon><span>公司动态</span></MenuItem>
-            <MenuItem name="2-3"><Icon type="android-contacts"></Icon><span>团队资讯</span></MenuItem>
-            <MenuItem name="2-4"><Icon type="happy"></Icon><span>俱乐部活动</span></MenuItem>
+            <MenuItem name="/scroll"><Icon type="arrow-swap"></Icon><span>滚动公告</span></MenuItem>
+            <MenuItem name="/a_list/live"><Icon type="videocamera"></Icon><span>直播公告</span></MenuItem>
+            <MenuItem name="/a_list/company"><Icon type="briefcase"></Icon><span>公司动态</span></MenuItem>
+            <MenuItem name="/a_list/team"><Icon type="android-contacts"></Icon><span>专家团队</span></MenuItem>
+            <MenuItem name="/a_list/culb"><Icon type="happy"></Icon><span>俱乐部活动</span></MenuItem>
+            <MenuItem name="/addAn"><Icon type="edit"></Icon><span>添加公告</span></MenuItem>
           </Submenu>
-          <MenuItem name="3">
-            <Icon type="person-stalker"></Icon>
-            <span>团队管理</span>
-          </MenuItem>
+          <Submenu name="3">
+            <template slot="title">
+              <Icon type="android-list"></Icon>
+              <span>团队管理</span>
+            </template>
+            <MenuItem name="/t_list"><Icon type="person-stalker"></Icon><span>团队列表</span></MenuItem>
+            <MenuItem name="/addAn"><Icon type="plus"></Icon><span>添加团队</span></MenuItem>
+          </Submenu>
           <MenuItem name="4">
             <Icon type="ios-basketball"></Icon>
             <span>相关活动</span>
@@ -80,6 +85,9 @@
       }
     },
     methods: {
+      go(name) {
+        this.$router.push({path: name});
+      },
       collapsedSider () {
         this.$refs.side1.toggleCollapse();
       }
