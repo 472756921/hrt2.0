@@ -12,6 +12,7 @@
               <Icon type="ios-paper"></Icon>
               <span>公告管理</span>
             </template>
+            <MenuItem name="2-1"><Icon type="arrow-swap"></Icon><span>滚动公告</span></MenuItem>
             <MenuItem name="2-1"><Icon type="videocamera"></Icon><span>直播公告</span></MenuItem>
             <MenuItem name="2-2"><Icon type="briefcase"></Icon><span>公司动态</span></MenuItem>
             <MenuItem name="2-3"><Icon type="android-contacts"></Icon><span>团队资讯</span></MenuItem>
@@ -34,11 +35,23 @@
       <Layout>
         <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
           <div class="title_A" style="float: left"><img src="./img/icon/logo.png" width=45 style="vertical-align: middle;"/> 哈瑞特信息发布平台</div>
-          <div style="float: right"><Avatar style="background-color: #87d068" icon="person" /> 刘德华 <Icon type="arrow-down-b" class="l_down"></Icon></div>
+          <div style="float: right">
+            <Avatar style="background-color: #87d068" icon="person" />
+            <Dropdown trigger="click" style="margin-left: 5px">
+              <a href="javascript:void(0)">刘德华 <Icon type="arrow-down-b"></Icon></a>
+              <DropdownMenu slot="list">
+                <DropdownItem>修改密码</DropdownItem>
+                <DropdownItem>个人资料</DropdownItem>
+                <DropdownItem>安全退出</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </Header>
         <Content :style="{padding: '16px'}">
           <Card>
-            <div style="height: 100%">Content</div>
+            <div style="height: 100%">
+              <router-view></router-view>
+            </div>
           </Card>
         </Content>
       </Layout>
