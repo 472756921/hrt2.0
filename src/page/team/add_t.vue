@@ -25,6 +25,7 @@
           </Option>
         </Select>
       </div>
+      <div class="item">医生职称：<Input v-model="name" style="width: 290px;"/></div>
       <div class="item">
         医生简介：
         <Input v-model="docInt" type="textarea" :rows="4"  />

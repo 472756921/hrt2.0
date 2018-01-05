@@ -39,6 +39,14 @@
             <Icon type="edit"></Icon>
             <span title="编写活动文章">编写活动文章</span>
           </MenuItem>
+          <Submenu name="3">
+            <template slot="title">
+              <Icon type="medkit"></Icon>
+              <span>健管师管理</span>
+            </template>
+            <MenuItem name="/m_list"><Icon type="clipboard"></Icon><span title="健管师管理列表">健管师管理列表</span></MenuItem>
+            <MenuItem name="/add_m"><Icon type="plus"></Icon><span title="添加健管师管理">添加健管师管理</span></MenuItem>
+          </Submenu>
         </Menu>
       </Sider>
       <Layout>
