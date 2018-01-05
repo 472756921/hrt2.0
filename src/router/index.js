@@ -20,14 +20,18 @@ import add_c from '@/page/cart/add_c.vue';
 import article from '@/page/article.vue';
 import addarticle from '@/page/addarticle.vue';
 
+
+import login from '@/page/login.vue';
+
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'login',
+      component: login
     },
     {
       path: '/cour',

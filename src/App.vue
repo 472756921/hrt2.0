@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <Layout style="height: 100%">
+    <Layout style="height: 100%" v-if="type">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
         <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses" @on-select="go">
           <MenuItem name="/cour">
@@ -42,7 +42,7 @@
 
           <Submenu name="4">
             <template slot="title">
-              <Icon type="android-list"></Icon>
+              <Icon type="android-people"></Icon>
               <span>团队管理</span>
             </template>
             <MenuItem name="/t_list"><Icon type="person-stalker"></Icon><span>团队列表</span></MenuItem>
@@ -51,7 +51,7 @@
 
           <Submenu name="5">
             <template slot="title">
-              <Icon type="medkit"></Icon>
+              <Icon type="ios-people"></Icon>
               <span>健管师管理</span>
             </template>
             <MenuItem name="/m_list"><Icon type="clipboard"></Icon><span title="健管师管理列表">健管师管理列表</span></MenuItem>
@@ -71,7 +71,7 @@
       </Sider>
       <Layout>
         <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
-          <div class="title_A" style="float: left"><img src="./img/icon/logo.png" width=45 style="vertical-align: middle;"/> 哈瑞特信息发布平台</div>
+          <div class="title_A" style="float: left"><img src="./img/icon/logo.png" width=45 style="vertical-align: middle;"/> 哈瑞特管理系统</div>
           <div style="float: right">
             <Avatar style="background-color: #87d068" icon="person" />
             <Dropdown trigger="click" style="margin-left: 5px">
@@ -93,14 +93,25 @@
         </Content>
       </Layout>
     </Layout>
+    <login v-if="!type"/>
   </div>
 </template>
 <script>
+  import login from './page/login.vue';
+
   export default {
+    components: { login },
     data () {
       return {
+        type: false,
         isCollapsed: false
       }
+    },
+    created(){
+      this.getClesses();
+    },
+    watch: {
+      '$route': ['getClesses'],
     },
     computed: {
       rotateIcon () {
@@ -117,6 +128,13 @@
       }
     },
     methods: {
+      getClesses() {
+        if(this.$route.name == 'login') {
+          this.type = false;
+        } else {
+          this.type = true;
+        }
+      },
       go(name) {
         this.$router.push({path: name});
       },
