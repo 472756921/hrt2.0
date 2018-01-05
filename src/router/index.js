@@ -9,7 +9,10 @@ import a_list from '@/page/announcement/a_list.vue';
 import add from '@/page/announcement/add.vue';
 //团队管理
 import t_list from '@/page/team/t_list.vue';
-
+import add_t from '@/page/team/add_t.vue';
+//文章管理
+import article from '@/page/article.vue';
+import addarticle from '@/page/addarticle.vue';
 
 Vue.use(Router)
 
@@ -44,6 +47,21 @@ export default new Router({
       path: '/t_list',
       name: 't_list',
       component: t_list
+    },
+    {
+      path: '/add_t',
+      name: 'add_t',
+      component: add_t
+    },
+    {
+      path: '/article/:type',
+      name: 'article',
+      component: article
+    },
+    {
+      path: '/addarticle',
+      name: 'addarticle',
+      component: addarticle
     },
   ]
 })

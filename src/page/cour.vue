@@ -1,7 +1,7 @@
 <template>
     <div>
       <h2>轮播管理</h2>
-      <uplode/>
+      <uplode :type="1"/>
       <div class="imgContents">
         <div class="imgcontent" v-for="(item, index) in imgList">
           <img :src=item>

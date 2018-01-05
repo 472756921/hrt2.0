@@ -3,7 +3,7 @@
     <Layout style="height: 100%">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
         <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses" @on-select="go">
-          <MenuItem name="cour">
+          <MenuItem name="/cour">
             <Icon type="flag"></Icon>
             <span>轮播管理</span>
           </MenuItem>
@@ -25,15 +25,19 @@
               <span>团队管理</span>
             </template>
             <MenuItem name="/t_list"><Icon type="person-stalker"></Icon><span>团队列表</span></MenuItem>
-            <MenuItem name="/addAn"><Icon type="plus"></Icon><span>添加团队</span></MenuItem>
+            <MenuItem name="/add_t"><Icon type="plus"></Icon><span>添加团队</span></MenuItem>
           </Submenu>
-          <MenuItem name="4">
+          <MenuItem name="/article/ac">
             <Icon type="ios-basketball"></Icon>
-            <span>相关活动</span>
+            <span>活动记录</span>
           </MenuItem>
-          <MenuItem name="5">
+          <MenuItem name="/article/home">
             <Icon type="ios-home"></Icon>
             <span>患者家园</span>
+          </MenuItem>
+          <MenuItem name="/addarticle">
+            <Icon type="edit"></Icon>
+            <span title="编写活动文章">编写活动文章</span>
           </MenuItem>
         </Menu>
       </Sider>

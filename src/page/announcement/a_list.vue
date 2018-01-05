@@ -46,7 +46,7 @@
                         this.del(params.index)
                       }
                     }
-                  }, '删除滚动'),
+                  }, '删除'),
                   h('Button', {
                     props: {
                       type: 'success',
@@ -95,8 +95,14 @@
               break;
           }
         },
-        newad() {
-
+        del(i) {
+          let mess = confirm('确认删除？删除后，该条公告将不再滚动显示');
+          if (mess) {
+            this.data1.splice(i, 1);
+            this.$Notice.success({
+              title: '删除成功',
+            });
+          }
         },
         show(i) {
           this.$Notice.open({
