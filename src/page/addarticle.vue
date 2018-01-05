@@ -5,7 +5,14 @@
     <div class="item">发布者：<Input v-model="auther" style="width: 300px"/></div>
     <div class="item">分类：
       <Select v-model="classes" style="width:300px; margin-left: 10px;z-index: 20000">
-        <Option v-for="item in cityList" :value="item.value" :key="item.value" style="z-index: 20000">{{ item.label }}</Option>
+        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
+    </div>
+    <div class="item" v-if="classes=='团队活动'">团队：
+      <Select v-model="teamName" style="width:300px; margin-left: 10px;z-index: 20000">
+        <Option value="王勉图团队">王勉图团队</Option>
+        <Option value="张勉图团队">张勉图团队</Option>
+        <Option value="罗勉图团队">罗勉图团队</Option>
       </Select>
     </div>
     <div id="editor"></div>
@@ -19,12 +26,13 @@
     data() {
       return {
         auther: '管理员',
+        teamName: '',
         title: '',
         classes: '',
         cityList: [
           {
-            value: '公司活动',
-            label: '公司活动'
+            value: '团队活动',
+            label: '团队活动'
           },
           {
             value: '患者家园',

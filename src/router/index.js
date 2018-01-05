@@ -13,6 +13,9 @@ import add_t from '@/page/team/add_t.vue';
 //健管师管理
 import m_list from '@/page/mannger/t_list.vue';
 import add_m from '@/page/mannger/add_t.vue';
+//商品管理
+import c_list from '@/page/cart/c_list.vue';
+import add_c from '@/page/cart/add_c.vue';
 //文章管理
 import article from '@/page/article.vue';
 import addarticle from '@/page/addarticle.vue';
@@ -65,6 +68,16 @@ export default new Router({
       path: '/add_m',
       name: 'add_m',
       component: add_m
+    },
+    {
+      path: '/c_list',
+      name: 'c_list',
+      component: c_list
+    },
+    {
+      path: '/add_c',
+      name: 'add_c',
+      component: add_c
     },
     {
       path: '/article/:type',

@@ -16,10 +16,31 @@
             <MenuItem name="/a_list/live"><Icon type="videocamera"></Icon><span>直播公告</span></MenuItem>
             <MenuItem name="/a_list/company"><Icon type="briefcase"></Icon><span>公司动态</span></MenuItem>
             <MenuItem name="/a_list/team"><Icon type="android-contacts"></Icon><span>专家团队</span></MenuItem>
-            <MenuItem name="/a_list/culb"><Icon type="happy"></Icon><span>俱乐部活动</span></MenuItem>
+            <MenuItem name="/a_list/culb"><Icon type="happy"></Icon><span>团队活动通知</span></MenuItem>
+            <MenuItem name="/a_list/date"><Icon type="ios-alarm-outline"></Icon><span title="团队面诊时间设置">团队面诊时间设置</span></MenuItem>
             <MenuItem name="/addAn"><Icon type="edit"></Icon><span>添加公告</span></MenuItem>
           </Submenu>
+
           <Submenu name="3">
+            <template slot="title">
+              <Icon type="ios-list-outline"></Icon>
+              <span>文章管理</span>
+            </template>
+            <MenuItem name="/article/ac">
+              <Icon type="ios-basketball"></Icon>
+              <span>团队活动记录</span>
+            </MenuItem>
+            <MenuItem name="/article/home">
+              <Icon type="ios-home"></Icon>
+              <span>患者家园</span>
+            </MenuItem>
+            <MenuItem name="/addarticle">
+              <Icon type="edit"></Icon>
+              <span title="添加文章">添加文章</span>
+            </MenuItem>
+          </Submenu>
+
+          <Submenu name="4">
             <template slot="title">
               <Icon type="android-list"></Icon>
               <span>团队管理</span>
@@ -27,19 +48,8 @@
             <MenuItem name="/t_list"><Icon type="person-stalker"></Icon><span>团队列表</span></MenuItem>
             <MenuItem name="/add_t"><Icon type="plus"></Icon><span>添加团队</span></MenuItem>
           </Submenu>
-          <MenuItem name="/article/ac">
-            <Icon type="ios-basketball"></Icon>
-            <span>活动记录</span>
-          </MenuItem>
-          <MenuItem name="/article/home">
-            <Icon type="ios-home"></Icon>
-            <span>患者家园</span>
-          </MenuItem>
-          <MenuItem name="/addarticle">
-            <Icon type="edit"></Icon>
-            <span title="编写活动文章">编写活动文章</span>
-          </MenuItem>
-          <Submenu name="3">
+
+          <Submenu name="5">
             <template slot="title">
               <Icon type="medkit"></Icon>
               <span>健管师管理</span>
@@ -47,6 +57,16 @@
             <MenuItem name="/m_list"><Icon type="clipboard"></Icon><span title="健管师管理列表">健管师管理列表</span></MenuItem>
             <MenuItem name="/add_m"><Icon type="plus"></Icon><span title="添加健管师管理">添加健管师管理</span></MenuItem>
           </Submenu>
+
+          <Submenu name="6">
+            <template slot="title">
+              <Icon type="android-cart"></Icon>
+              <span>商品管理</span>
+            </template>
+            <MenuItem name="/c_list"><Icon type="clipboard"></Icon><span title="商品列表">商品列表</span></MenuItem>
+            <MenuItem name="/add_c"><Icon type="plus"></Icon><span title="添加商品">添加商品</span></MenuItem>
+          </Submenu>
+
         </Menu>
       </Sider>
       <Layout>

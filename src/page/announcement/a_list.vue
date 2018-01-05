@@ -91,7 +91,10 @@
               this.title = '专家团队';
               break;
             case 'culb':
-              this.title = '俱乐部活动';
+              this.title = '团队活动';
+              break;
+            case 'date':
+              this.title = '团队面诊时间';
               break;
           }
         },

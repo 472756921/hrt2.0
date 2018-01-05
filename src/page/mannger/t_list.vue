@@ -113,7 +113,15 @@
         this.teamShow = true;
       },
       edit() {},
-      del() {},
+      del(i) {
+        let mess = confirm('确认删除？');
+        if (mess) {
+          this.data1.splice(i, 1);
+          this.$Notice.success({
+            title: '删除成功',
+          });
+        }
+      },
       ok() {},
     }
   };

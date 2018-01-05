@@ -1,46 +1,33 @@
 <template>
   <div>
-    <h2>{{this.title}}</h2>
+    <h2>商品列表</h2>
     <Table :columns="columns1" :data="data1"></Table>
     <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
-
-
-    <Modal v-model="articleFlg" title="文章预览" width="50%">
-      <h2 class="center">文章标题</h2>
-      <div class="center" style="color: #999">作者 & 2012-12-12</div>
-      <div class="text">
-        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-      </div>
-    </Modal>
-
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
-    name: 'article',
-    created () {
-      this.getClesses();
-    },
-    watch: {
-      '$route': ['getClesses'],
-    },
-    data () {
+    name: 'c_list',
+    data(){
       return {
-        articleFlg: false,
-        title: '',
+        teamShow: false,
         columns1: [
           {
-            title: '标题',
-            key: 'title'
-          },
-          {
-            title: '发布时间',
+            title: '商品名',
             key: 'date'
           },
           {
-            title: '作者',
-            key: 'auther'
+            title: '创建时间',
+            key: 'date'
+          },
+          {
+            title: '价格',
+            key: 'date'
+          },
+          {
+            title: '简介',
+            key: 'date'
           },
           {
             title: '操作',
@@ -63,20 +50,6 @@
                 }, '删除'),
                 h('Button', {
                   props: {
-                    type: 'success',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params)
-                    }
-                  }
-                }, '预览'),
-                h('Button', {
-                  props: {
                     type: 'warning',
                     size: 'small'
                   },
@@ -96,27 +69,19 @@
         data1: [
           {
             title: 'John Brown',
-            date: '2016-10-03'
+            date: '2016-10-03',
+            type: '心血管',
           },
           {
             title: 'Jim Green',
-            date: '2016-10-01'
+            date: '2016-10-01',
+            type: '心血管',
           },
         ],
       }
     },
     methods: {
-      getClesses () {
-        let type = this.$route.params.type;
-        switch (type){
-          case 'home':
-            this.title = '患者家园';
-            break;
-          case 'ac':
-            this.title = '团队活动记录';
-            break;
-        }
-      },
+      edit() {},
       del(i) {
         let mess = confirm('确认删除？');
         if (mess) {
@@ -126,22 +91,20 @@
           });
         }
       },
-      edit(i) {
-      },
-      show(i) {
-        this.articleFlg = true;
-      },
+      ok() {},
     }
   };
 </script>
 
 <style scoped>
-.center{
-  text-align: center;
-}
-.text{
-  word-wrap:break-word;
-  background: #eee;
-  padding: 10px;
-}
+  .info{
+    color: #999;
+  }
+  .item{
+    margin: 6px 0;
+  }
+  .Introduction{
+    background: #eee;
+    padding: 10px;
+  }
 </style>
