@@ -10,6 +10,7 @@
       <Button type="ghost" icon="checkmark-circled" class="loginBtn" @click="login">登录</Button>
     </div>
     <canvas id="canvas"></canvas>
+
   </div>
 </template>
 
