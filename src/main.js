@@ -6,7 +6,6 @@ import 'iview/dist/styles/iview.css';
 import axios from 'axios';
 import './style/animate.css'
 
-
 //百度编辑器
 import '../static/umeditor/themes/default/css/umeditor.css'
 import '../static/umeditor/umeditor.config.js'

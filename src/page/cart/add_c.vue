@@ -1,8 +1,8 @@
 <template>
     <div>
       <h2>添加商品</h2>
-      <div class="item">名称：<Input v-model="name" style="width: 300px; margin-left: 18px"/></div>
-      <div class="item">价格：<Input v-model="phone" style="width: 290px;"/></div>
+      <div class="item">名称：<Input v-model="name" style="width: 300px;"/></div>
+      <div class="item">价格：<Input v-model="phone" style="width: 300px;"/></div>
       <div class="item">
        简介：
         <Input v-model="teamInt" type="textarea" :rows="4"  />

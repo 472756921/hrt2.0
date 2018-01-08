@@ -7,6 +7,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { getList } from '../../interface';
+
     export default {
       name: 'a_list',
       created () {
@@ -19,6 +21,7 @@
         return {
           addAn: false,
           title: '',
+          classes: '1',
           columns1: [
             {
               title: '标题',
@@ -26,7 +29,7 @@
             },
             {
               title: '发布时间',
-              key: 'date'
+              key: 'addTime'
             },
             {
               title: '操作',
@@ -65,16 +68,7 @@
               }
             }
           ],
-          data1: [
-            {
-              title: 'John Brown',
-              date: '2016-10-03'
-            },
-            {
-              title: 'Jim Green',
-              date: '2016-10-01'
-            },
-          ],
+          data1: [],
         }
       },
       methods: {
@@ -83,20 +77,26 @@
           switch (clesses){
             case 'live':
               this.title = '直播';
+              this.classes = 2;
               break;
             case 'company':
               this.title = '公司';
+              this.classes = 3;
               break;
             case 'team':
               this.title = '专家团队';
+              this.classes = 4;
               break;
             case 'culb':
               this.title = '团队活动';
+              this.classes = 5;
               break;
             case 'date':
               this.title = '团队面诊时间';
+              this.classes = 6;
               break;
           }
+          this.getList(1);
         },
         del(i) {
           let mess = confirm('确认删除？删除后，该条公告将不再滚动显示');
@@ -110,7 +110,19 @@
         show(i) {
           this.$Notice.open({
             title: i.row.title,
-            desc: 'Here is the notification description. Here is the notification description. ',
+            desc: i.row.content,
+          });
+        },
+        getList(page) {
+          this.$ajax({
+            method: 'GET',
+            url:getList() + '/' + this.classes + '?pageSize=30&page=' + page,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            this.data1 = res.data.data;
+          }).catch((error) => {
+            this.$message.error(error.message);
           });
         },
       }
