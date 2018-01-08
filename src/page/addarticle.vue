@@ -15,14 +15,17 @@
         <Option value="罗勉图团队">罗勉图团队</Option>
       </Select>
     </div>
-    <div id="editor"></div>
+    <editor/>
     <Button type="primary" style="margin: 10px 0" @click="addan">发布文章</Button>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import editor from '../components/editor.vue';
+
   export default {
     name: 'newarticle',
+    components: { editor },
     data() {
       return {
         auther: '管理员',
@@ -40,12 +43,6 @@
           },
         ],
       }
-    },
-    mounted(){
-      let E = window.wangEditor
-      let editor = new E('#editor')
-      // 或者 var editor = new E( document.getElementById('editor') )
-      editor.create()
     },
     methods: {
       addan() {

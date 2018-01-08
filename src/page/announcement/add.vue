@@ -8,14 +8,18 @@
         <Option v-for="item in cityList" :value="item.value" :key="item.value" style="z-index: 20000">{{ item.label }}</Option>
       </Select>
     </div>
-    <div id="editor"></div>
+    <!--<div id="editor"></div>-->
+    <editor/>
     <Button type="primary" style="margin: 10px 0" @click="addan">发布公告</Button>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import editor from '../../components/editor.vue';
+
   export default {
     name: 'add',
+    components: { editor },
     data() {
       return {
         auther: '管理员',
@@ -42,10 +46,10 @@
       }
     },
     mounted(){
-      let E = window.wangEditor
-      let editor = new E('#editor')
-      // 或者 var editor = new E( document.getElementById('editor') )
-      editor.create()
+//      let E = window.wangEditor
+//      let editor = new E('#editor')
+//      // 或者 var editor = new E( document.getElementById('editor') )
+//      editor.create()
     },
     methods: {
       addan() {
