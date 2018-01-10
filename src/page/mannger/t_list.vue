@@ -2,7 +2,6 @@
   <div>
     <h2>健管师列表</h2>
     <Table :columns="columns1" :data="data1"></Table>
-    <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
     <Modal v-model="teamShow" title="团队详情" @on-ok="ok">
       <div class="item" style="text-align: center">
         <img src="http://iph.href.lu/140x140?text=%E5%81%A5%E7%AE%A1%E5%B8%88%E5%A4%B4%E5%83%8F" alt="健管师头像" title="健管师头像"/>
@@ -17,6 +16,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { healthTeacherList } from '../../interface';
+
   export default {
     name: 't_list',
     data(){
@@ -25,19 +26,19 @@
         columns1: [
           {
             title: '健管师',
-            key: 'date'
+            key: 'realName'
           },
           {
             title: '创建时间',
-            key: 'date'
+            key: 'createDate'
           },
           {
-            title: '学历',
-            key: 'date'
+            title: '性别',
+            key: 'gender'
           },
           {
             title: '电话',
-            key: 'date'
+            key: 'phone'
           },
           {
             title: '团队',
@@ -94,19 +95,11 @@
             }
           }
         ],
-        data1: [
-          {
-            title: 'John Brown',
-            date: '2016-10-03',
-            type: '心血管',
-          },
-          {
-            title: 'Jim Green',
-            date: '2016-10-01',
-            type: '心血管',
-          },
-        ],
+        data1: [],
       }
+    },
+    created() {
+      this.getHTL(1);
     },
     methods: {
       show(i) {
@@ -123,6 +116,18 @@
         }
       },
       ok() {},
+      getHTL() {
+        this.$ajax({
+          method: 'GET',
+          url:healthTeacherList(),
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+        }).then((res) => {
+          this.data1 = res.data.data;
+        }).catch((error) => {
+          this.$message.error('获取健管师列表失败');
+        });
+      },
     }
   };
 </script>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 import cour from '@/page/cour.vue';
 //公告管理
@@ -19,7 +18,6 @@ import add_c from '@/page/cart/add_c.vue';
 //文章管理
 import article from '@/page/article.vue';
 import addarticle from '@/page/addarticle.vue';
-
 
 import login from '@/page/login.vue';
 

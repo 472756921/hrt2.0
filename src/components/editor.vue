@@ -11,7 +11,17 @@
       let um = UM.getEditor('myEditor');
     },
     destroyed () {
-      UM.delEditor('myEditor')
+      UM.delEditor('myEditor');
+    },
+    data(){
+      return {
+        innerData: '',
+      }
+    },
+    methods: {
+      getInfo() {
+        return UM.getEditor('myEditor').getContent();
+      },
     },
   };
 </script>

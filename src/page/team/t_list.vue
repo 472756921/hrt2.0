@@ -21,6 +21,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { teamList } from '../../interface';
+
   export default {
     name: 't_list',
     data(){
@@ -29,23 +31,28 @@
         columns1: [
           {
             title: '团队名',
-            key: 'title'
+            key: 'name'
           },
           {
             title: '健管师',
-            key: 'date'
+            key: 'healthName'
           },
           {
             title: '创建时间',
-            key: 'date'
+            key: 'createDate'
           },
           {
             title: '类型',
-            key: 'type'
+            key: 'teamType',
+            render: (h, p) => {
+              if (p.row.teamType != undefined ){
+                return p.row.teamType.name;
+              }
+            }
           },
           {
             title: '现有人数',
-            key: 'date'
+            key: 'num',
           },
           {
             title: '操作',
@@ -112,7 +119,22 @@
         ],
       }
     },
+    created() {
+      this.getData(1);
+    },
     methods: {
+      getData(page) {
+        this.$ajax({
+          method: 'GET',
+          url:teamList() + '?pageSize=30&page=' + page,
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+        }).then((res) => {
+          this.data1 = res.data.data.content;
+        }).catch((error) => {
+          this.$message.error(error.message);
+        });
+      },
       show(i) {
         this.teamShow = true;
       },

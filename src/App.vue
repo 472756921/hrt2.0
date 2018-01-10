@@ -10,7 +10,7 @@
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-paper"></Icon>
-              <span>公告管理</span>
+              <span>最新资讯</span>
             </template>
             <MenuItem name="/scroll"><Icon type="arrow-swap"></Icon><span>滚动公告</span></MenuItem>
             <MenuItem name="/a_list/live"><Icon type="videocamera"></Icon><span>直播公告</span></MenuItem>
@@ -18,27 +18,28 @@
             <MenuItem name="/a_list/team"><Icon type="android-contacts"></Icon><span>专家团队</span></MenuItem>
             <MenuItem name="/a_list/culb"><Icon type="happy"></Icon><span>团队活动通知</span></MenuItem>
             <MenuItem name="/a_list/date"><Icon type="ios-alarm-outline"></Icon><span title="团队面诊时间设置">团队面诊时间设置</span></MenuItem>
-            <MenuItem name="/addAn"><Icon type="edit"></Icon><span>添加公告</span></MenuItem>
+            <MenuItem name="/a_list/remb"><Icon type="ios-basketball"></Icon><span>活动记录</span></MenuItem>
+            <MenuItem name="/addAn"><Icon type="edit"></Icon><span>添加资讯</span></MenuItem>
           </Submenu>
 
-          <Submenu name="3">
-            <template slot="title">
-              <Icon type="ios-list-outline"></Icon>
-              <span>文章管理</span>
-            </template>
-            <MenuItem name="/article/ac">
-              <Icon type="ios-basketball"></Icon>
-              <span>团队活动记录</span>
-            </MenuItem>
-            <MenuItem name="/article/home">
-              <Icon type="ios-home"></Icon>
-              <span>患者家园</span>
-            </MenuItem>
-            <MenuItem name="/addarticle">
-              <Icon type="edit"></Icon>
-              <span title="添加文章">添加文章</span>
-            </MenuItem>
-          </Submenu>
+          <!--<Submenu name="3">-->
+            <!--<template slot="title">-->
+              <!--<Icon type="ios-list-outline"></Icon>-->
+              <!--<span>文章管理</span>-->
+            <!--</template>-->
+            <!--<MenuItem name="/article/ac">-->
+              <!--<Icon type="ios-basketball"></Icon>-->
+              <!--<span>团队活动记录</span>-->
+            <!--</MenuItem>-->
+            <!--<MenuItem name="/article/home">-->
+              <!--<Icon type="ios-home"></Icon>-->
+              <!--<span>患者家园</span>-->
+            <!--</MenuItem>-->
+            <!--<MenuItem name="/addarticle">-->
+              <!--<Icon type="edit"></Icon>-->
+              <!--<span title="添加文章">添加文章</span>-->
+            <!--</MenuItem>-->
+          <!--</Submenu>-->
 
           <Submenu name="4">
             <template slot="title">

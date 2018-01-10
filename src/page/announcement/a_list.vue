@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h2>{{this.title}}公告管理</h2>
+      <h2>{{this.title}}管理</h2>
       <Table :columns="columns1" :data="data1"></Table>
       <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
     </div>
@@ -76,24 +76,28 @@
           let clesses = this.$route.params.classes;
           switch (clesses){
             case 'live':
-              this.title = '直播';
+              this.title = '直播公告';
               this.classes = 2;
               break;
             case 'company':
-              this.title = '公司';
+              this.title = '公司公告';
               this.classes = 3;
               break;
             case 'team':
-              this.title = '专家团队';
+              this.title = '专家团队公告';
               this.classes = 4;
               break;
             case 'culb':
-              this.title = '团队活动';
+              this.title = '团队活动公告';
               this.classes = 5;
               break;
             case 'date':
-              this.title = '团队面诊时间';
+              this.title = '团队面诊时间公告';
               this.classes = 6;
+              break;
+            case 'remb':
+              this.title = '活动记录';
+              this.classes = 7;
               break;
           }
           this.getList(1);
