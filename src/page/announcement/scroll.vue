@@ -4,20 +4,29 @@
     <Button type="primary" style="margin: 10px 0" @click="addAn=true">添加公告</Button>
     <Table :columns="columns1" :data="data1"></Table>
     <Modal v-model="addAn" title="添加滚动公告" @on-ok="ok">
+      <span>公告类型：</span>
+      <Select v-model="classes" style="width:300px;">
+        <Option v-for="item in cityList" :value="item.value" :key="item.value" style="z-index: 20000">{{ item.label }}</Option>
+      </Select>
+      <br/>
+      <br/>
       <span>公告标题：</span>
-      <Select v-model="adTitle" style="width:200px" filterable>
-        <Option v-for="item in amlist" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      <Select v-model="adTitle" style="width:300px" filterable>
+        <Option v-for="item in amlist" :value="item.id" :key="item.id">{{ item.title }}</Option>
       </Select>
     </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import { getList } from '../../interface';
+
   export default {
     name: 'scroll',
     data () {
       return {
         adTitle: '',
+        classes: '',
         addAn: false,
         columns1: [
           {
@@ -65,31 +74,41 @@
             }
           }
         ],
-        data1: [
+        cityList: [
           {
-            title: 'John Brown',
-            date: '2016-10-03'
+            value: '2',
+            label: '直播公告'
           },
           {
-            title: 'Jim Green',
-            date: '2016-10-01'
+            value: '3',
+            label: '公司动态'
+          },
+          {
+            value: '4',
+            label: '专家团队'
+          },
+          {
+            value: '5',
+            label: '团队活动'
+          },
+          {
+            value: '6',
+            label: '团队面诊时间'
+          },
+          {
+            value: '7',
+            label: '活动记录'
           },
         ],
-        amlist: [
-          {
-          value: 'New York',
-          label: 'New York'
-         },
-          {
-            value: 'London',
-            label: 'London'
-          },
-          {
-            value: 'Sydney',
-            label: 'Sydney'
-          },
-        ],
+        data1: [],
+        amlist: [],
       }
+    },
+    created() {
+      this.getList(1, 2);
+    },
+    watch: {
+      classes: 'changeType',
     },
     methods: {
       show(i) {
@@ -105,20 +124,35 @@
             title: 'new Message',
             date: '2018-01-04'
           })
-          this.$Notice.success({
-            title: '设置成功',
-          });
+          this.$Message.success('设置成功');
         }
       },
       del(i) {
         let mess = confirm('确认删除？删除后，该条公告将不再滚动显示');
         if (mess) {
           this.data1.splice(i, 1);
-          this.$Notice.success({
-            title: '删除成功',
-          });
+          this.$Message.success('删除成功');
         }
       },
+      getList(page, type) {
+        this.$ajax({
+          method: 'GET',
+          url:getList() + '/' + type + '?pageSize=30&page=' + page,
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+        }).then((res) => {
+          if (type == 1) {
+            this.data1 = res.data.data;
+          } else {
+            this.amlist = res.data.data;
+          }
+        }).catch((error) => {
+          this.$message.error(error.message);
+        });
+      },
+      changeType(v, ov) {
+        this.getList(1, v);
+      }
     }
   };
 </script>
