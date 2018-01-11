@@ -142,9 +142,9 @@
           contentType: 'application/json;charset=UTF-8',
         }).then((res) => {
           if (type == 1) {
-            this.data1 = res.data.data;
+            this.data1 = res.data.data.content;
           } else {
-            this.amlist = res.data.data;
+            this.amlist = res.data.data.content;
           }
         }).catch((error) => {
           this.$message.error(error.message);

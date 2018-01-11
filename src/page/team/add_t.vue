@@ -1,16 +1,17 @@
 <template>
     <div>
-      <h2>添加团队</h2>
-      <div class="item">名称：<Input v-model="name" style="width: 300px; margin-left: 18px"/></div>
+      <h2 v-if="status==1">修改团队</h2>
+      <h2 v-if="status==0">添加团队</h2>
+      <div class="item">名称：<Input v-model="name" style="width: 289px; margin-left: 28px"/></div>
       <div class="item">分类：
-        <Select v-model="type" style="width:300px; margin-left: 14px;">
+        <Select v-model="type" style="width: 289px; margin-left: 24px;">
           <Option value="1">儿科</Option>
           <Option value="2">心脏科类</Option>
           <Option value="3">妇科类</Option>
         </Select>
       </div>
       <div class="item">健管师：
-        <Select v-model="admin" style="width:300px;" filterable>
+        <Select v-model="admin" style="width: 289px; margin-left: 10px" filterable>
           <Option value="it.id" v-for="(it, i) in HTL" :key="i">
             <span>{{it.name}}</span>
             <span style="float:right;color:#ccc">{{it.phone}}</span>
@@ -30,19 +31,22 @@
       <uplode :type="2" @getImgUrl="getImgUrl"/>
       <span>建议尺寸 300*200</span>
       <br/>
-      <Button type="primary" style="margin: 10px 0" @click="addan">添加团队</Button>
+      <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==1">修改团队</Button>
+      <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==0">添加团队</Button>
+      {{this.editData}}
     </div>
 </template>
 
 <script type="text/ecmascript-6">
   import uplode from '../../components/upload.vue';
-  import { teamAdd, healthTeacherList } from '../../interface';
+  import { teamAdd, healthTeacherList, teamedit } from '../../interface';
 
     export default {
       name: 'add_t',
       components: { uplode },
       data() {
         return {
+          status: 0,    //0  create    1  edit
           type: '1',
           teamInt: '',
           docInt: '',
@@ -52,10 +56,19 @@
           zc: '',
           imgID: '',
           HTL: [],
+          editData: '',
         }
       },
       created() {
         this.getHTL();
+        if (this.$route.params.editData != null) {
+          this.editData = this.$route.params.editData;
+          this.status = 1;
+
+          this.docInt = this.editData.doctorRemarks;
+          this.teamInt = this.editData.remarks;
+          this.admin = this.editData.healthTeacherId;
+        }
       },
       methods: {
         getHTL() {

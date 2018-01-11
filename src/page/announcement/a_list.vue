@@ -7,7 +7,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getList } from '../../interface';
+  import { getList, delan } from '../../interface';
 
     export default {
       name: 'a_list',
@@ -46,7 +46,7 @@
                     },
                     on: {
                       click: () => {
-                        this.del(params.index)
+                        this.del(params.index, params.row.id);
                       }
                     }
                   }, '删除'),
@@ -102,12 +102,19 @@
           }
           this.getList(1);
         },
-        del(i) {
-          let mess = confirm('确认删除？删除后，该条公告将不再滚动显示');
+        del(i, id) {
+          let mess = confirm('确认删除？');
           if (mess) {
-            this.data1.splice(i, 1);
-            this.$Notice.success({
-              title: '删除成功',
+            this.$ajax({
+              method: 'GET',
+              url:delan() +"?id=" + id,
+              dataType: 'JSON',
+              contentType: 'application/json;charset=UTF-8',
+            }).then((res) => {
+              this.data1.splice(i, 1);
+              this.$Message.success('删除成功');
+            }).catch((error) => {
+              this.$Message.error(error.message);
             });
           }
         },
@@ -124,7 +131,7 @@
             dataType: 'JSON',
             contentType: 'application/json;charset=UTF-8',
           }).then((res) => {
-            this.data1 = res.data.data;
+            this.data1 = res.data.data.content;
           }).catch((error) => {
             this.$message.error(error.message);
           });

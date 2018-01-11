@@ -4,19 +4,20 @@
     <Table :columns="columns1" :data="data1"></Table>
     <Modal v-model="teamShow" title="团队详情" @on-ok="ok">
       <div class="item" style="text-align: center">
-        <img src="http://iph.href.lu/140x140?text=%E5%81%A5%E7%AE%A1%E5%B8%88%E5%A4%B4%E5%83%8F" alt="健管师头像" title="健管师头像"/>
+        <img :src=message.icon.url alt="健管师头像" title="健管师头像"/>
       </div>
-      <div class="item">健管师：<span class="info">张蓉蓉</span></div>
-      <div class="item">健管师电话：<span class="info">17789938475</span></div>
-      <div class="item">建立时间：<span class="info">2012-12-12</span></div>
-      <div class="item">团队：<span class="info">王勉医生工作室</span></div>
-      <div class="item Introduction">简介：<span class="info">这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛</span></div>
+      <div class="item">健管师：<span class="info">{{message.name}}</span></div>
+      <div class="item">健管师电话：<span class="info">{{message.phone}}</span></div>
+      <div class="item">学历：<span class="info">{{message.education}}</span></div>
+      <div class="item">建立时间：<span class="info">{{message.createDate}}</span></div>
+      <div class="item">团队：<span class="info">{{message.teams}}</span></div>
+      <div class="item Introduction">简介：<span class="info">{{message.remarks}}</span></div>
     </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { healthTeacherList } from '../../interface';
+  import { healthTheacher, deletehealthTheacher } from '../../interface';
 
   export default {
     name: 't_list',
@@ -26,7 +27,7 @@
         columns1: [
           {
             title: '健管师',
-            key: 'realName'
+            key: 'name'
           },
           {
             title: '创建时间',
@@ -34,7 +35,16 @@
           },
           {
             title: '性别',
-            key: 'gender'
+            key: 'gender',
+            render: (h, p) => {
+              if(p.row.gender == 0) {
+                return '女'
+              } else   if(p.row.gender == 1) {
+                return '男'
+              } else {
+                return '性别不明'
+              }
+            },
           },
           {
             title: '电话',
@@ -42,7 +52,7 @@
           },
           {
             title: '团队',
-            key: 'date'
+            key: 'teams'
           },
           {
             title: '操作',
@@ -59,7 +69,7 @@
                   },
                   on: {
                     click: () => {
-                      this.show(params.index)
+                      this.show(params)
                     }
                   }
                 }, '详情'),
@@ -73,7 +83,8 @@
                   },
                   on: {
                     click: () => {
-                      this.del(params.index)
+                      console.log(params)
+                      this.del(params.index, params.row.id)
                     }
                   }
                 }, '删除'),
@@ -87,7 +98,7 @@
                   },
                   on: {
                     click: () => {
-                      this.edit(params)
+                      this.edit(params.row.id)
                     }
                   }
                 }, '编辑'),
@@ -96,6 +107,18 @@
           }
         ],
         data1: [],
+        message: {
+          icon: {
+            url: '',
+          },
+          education: '',
+          gender: '',
+          name: '',
+          phone: '',
+          remarks: '',
+          createDate: '',
+          teams: '',
+        },
       }
     },
     created() {
@@ -104,26 +127,36 @@
     methods: {
       show(i) {
         this.teamShow = true;
+        this.message = i.row;
       },
       edit() {},
-      del(i) {
+      del(i, id) {
+        console.log(id);
         let mess = confirm('确认删除？');
         if (mess) {
-          this.data1.splice(i, 1);
-          this.$Notice.success({
-            title: '删除成功',
+          this.$ajax({
+            method: 'GET',
+            url:deletehealthTheacher()+"?id=" + id,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            this.data1.splice(i, 1);
+            this.$Message.success('删除成功');
+          }).catch((error) => {
+            this.$message.error('删除失败');
           });
+
         }
       },
       ok() {},
       getHTL() {
         this.$ajax({
           method: 'GET',
-          url:healthTeacherList(),
+          url:healthTheacher(),
           dataType: 'JSON',
           contentType: 'application/json;charset=UTF-8',
         }).then((res) => {
-          this.data1 = res.data.data;
+          this.data1 = res.data.data.content;
         }).catch((error) => {
           this.$message.error('获取健管师列表失败');
         });

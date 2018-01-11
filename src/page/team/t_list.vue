@@ -4,24 +4,24 @@
     <Table :columns="columns1" :data="data1"></Table>
     <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
     <Modal v-model="teamShow" title="团队详情" @on-ok="ok">
-      <div class="item">团队名：<span class="info">王勉医生工作室</span></div>
-      <div class="item">健管师：<span class="info">张蓉蓉</span></div>
-      <div class="item">健管师电话：<span class="info">17789938475</span></div>
-      <div class="item">团队人数：<span class="info">294人</span></div>
-      <div class="item">建立时间：<span class="info">2012-12-12</span></div>
-      <div class="item">团队类型：<span class="info">心血管</span></div>
-      <div class="item Introduction">团队简介：<span class="info">这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛</span></div>
-      <div class="item Introduction">医生简介：<span class="info">这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛这个团队比较牛</span></div>
+      <div class="item">团队名：<span class="info">{{showMessages.name}}</span></div>
+      <div class="item">建立时间：<span class="info">{{showMessages.createDate}}</span></div>
+      <div class="item">健管师：<span class="info">{{showMessages.healthName}}</span></div>
+      <div class="item">健管师电话：<span class="info">{{showMessages.healthPhone}}</span></div>
+      <div class="item">团队人数：<span class="info">{{showMessages.num}}</span></div>
+      <div class="item">团队类型：<span class="info">{{showMessages.teamType.name}}</span></div>
+      <div class="item Introduction">医生简介：<span class="info">{{showMessages.doctorRemarks}}</span></div>
+      <div class="item Introduction">团队简介：<span class="info">{{showMessages.remarks}}</span></div>
       <div class="item">
-        <img src="http://iph.href.lu/140x140?text=%E5%8C%BB%E7%94%9F%E5%A4%B4%E5%83%8F" title="医生头像" alt="医生头像"/>
-        <img src="http://iph.href.lu/140x140?text=%E5%81%A5%E7%AE%A1%E5%B8%88%E5%A4%B4%E5%83%8F" alt="健管师头像" title="健管师头像"/>
+        <img :src= showMessages.image title="医生头像" alt="医生头像"/>
+        <img :src= showMessages.healthTeacherImg.url alt="健管师头像" title="健管师头像"/>
       </div>
     </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { teamList } from '../../interface';
+  import { teamList, teamdetail, teamdelete } from '../../interface';
 
   export default {
     name: 't_list',
@@ -69,7 +69,7 @@
                   },
                   on: {
                     click: () => {
-                      this.show(params.index)
+                      this.show(params.row.id)
                     }
                   }
                 }, '详情'),
@@ -83,7 +83,7 @@
                   },
                   on: {
                     click: () => {
-                      this.del(params.index)
+                      this.del(params.index, params.row.id)
                     }
                   }
                 }, '删除'),
@@ -105,18 +105,28 @@
             }
           }
         ],
-        data1: [
-          {
-            title: 'John Brown',
-            date: '2016-10-03',
-            type: '心血管',
+        data1: [],
+        showMessages: 	{
+          createDate:'',
+          doctorRemarks:'',
+          healthName:'',
+          healthPhone:'',
+          healthTeacherId:'',
+          healthTeacherImg:{
+            id:'',
+            url:''
           },
-          {
-            title: 'Jim Green',
-            date: '2016-10-01',
-            type: '心血管',
-          },
-        ],
+          id:'',
+          image:'',
+          name:'',
+          num:'',
+          remarks:'',
+          teamType:{
+            id:1,
+            name:'',
+            status:''
+          }
+        },
       }
     },
     created() {
@@ -137,14 +147,36 @@
       },
       show(i) {
         this.teamShow = true;
+        this.getTeamMessage(i);
       },
-      edit() {},
-      del(i) {
+      getTeamMessage(id) {
+        this.$ajax({
+          method: 'GET',
+          url:teamdetail() + '?id=' + id,
+          dataType: 'JSON',
+          contentType: 'application/json;charset=UTF-8',
+        }).then((res) => {
+          this.showMessages = res.data.data;
+        }).catch((error) => {
+          this.$message.error(error.message);
+        });
+      },
+      edit(p) {
+        this.$router.push({ name:'add_t', params:{ editData: p.row } });
+      },
+      del(i, id) {
         let mess = confirm('确认删除？');
         if (mess) {
-          this.data1.splice(i, 1);
-          this.$Notice.success({
-            title: '删除成功',
+          this.$ajax({
+            method: 'GET',
+            url:teamdelete() +"?id=" + id,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            this.data1.splice(i, 1);
+            this.$Message.success('删除成功');
+          }).catch((error) => {
+            this.$Message.error(error.message);
           });
         }
       },
