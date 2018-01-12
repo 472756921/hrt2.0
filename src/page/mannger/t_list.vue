@@ -4,7 +4,7 @@
     <Table :columns="columns1" :data="data1"></Table>
     <Modal v-model="teamShow" title="团队详情" @on-ok="ok">
       <div class="item" style="text-align: center">
-        <img :src=message.icon.url alt="健管师头像" title="健管师头像"/>
+        <img :src=message.icon.url alt="健管师头像" title="健管师头像" width="200"/>
       </div>
       <div class="item">健管师：<span class="info">{{message.name}}</span></div>
       <div class="item">健管师电话：<span class="info">{{message.phone}}</span></div>

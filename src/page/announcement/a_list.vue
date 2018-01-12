@@ -2,7 +2,7 @@
     <div>
       <h2>{{this.title}}管理</h2>
       <Table :columns="columns1" :data="data1"></Table>
-      <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
+      <Page :total="totalPages" :page-size="30" :current='pageNow' style="margin: 30px auto 10px;text-align: center" @on-change="changPage"></Page>
     </div>
 </template>
 
@@ -19,6 +19,9 @@
       },
       data () {
         return {
+          pageNow: 1,
+          totalPages: '',
+          totle: '',
           addAn: false,
           title: '',
           classes: '1',
@@ -124,6 +127,9 @@
             desc: i.row.content,
           });
         },
+        changPage(pageNew) {
+          this.getList(pageNew);
+        },
         getList(page) {
           this.$ajax({
             method: 'GET',
@@ -131,6 +137,8 @@
             dataType: 'JSON',
             contentType: 'application/json;charset=UTF-8',
           }).then((res) => {
+            this.totalPages = res.data.data.totalPages * 30;
+            this.pageNow = page;
             this.data1 = res.data.data.content;
           }).catch((error) => {
             this.$message.error(error.message);

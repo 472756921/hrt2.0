@@ -2,7 +2,7 @@
   <div>
     <h2>团队列表</h2>
     <Table :columns="columns1" :data="data1"></Table>
-    <Page :total="100" style="margin: 30px auto 10px;text-align: center"></Page>
+    <Page :total="totalPages" :page-size="30" :current='pageNow' style="margin: 30px auto 10px;text-align: center" @on-change="changPage"></Page>
     <Modal v-model="teamShow" title="团队详情" @on-ok="ok">
       <div class="item">团队名：<span class="info">{{showMessages.name}}</span></div>
       <div class="item">建立时间：<span class="info">{{showMessages.createDate}}</span></div>
@@ -13,8 +13,8 @@
       <div class="item Introduction">医生简介：<span class="info">{{showMessages.doctorRemarks}}</span></div>
       <div class="item Introduction">团队简介：<span class="info">{{showMessages.remarks}}</span></div>
       <div class="item">
-        <img :src= showMessages.image title="医生头像" alt="医生头像"/>
-        <img :src= showMessages.healthTeacherImg.url alt="健管师头像" title="健管师头像"/>
+        <img :src= showMessages.image.url title="医生头像" alt="医生头像" width="200" height="130"/>
+        <img :src= showMessages.healthTeacherImg.url alt="健管师头像" title="健管师头像" width="200" height="130"/>
       </div>
     </Modal>
   </div>
@@ -27,6 +27,8 @@
     name: 't_list',
     data(){
       return {
+        pageNow: 1,
+        totalPages: '',
         teamShow: false,
         columns1: [
           {
@@ -133,13 +135,18 @@
       this.getData(1);
     },
     methods: {
+      changPage(pageNew) {
+        this.getData(pageNew);
+      },
       getData(page) {
         this.$ajax({
           method: 'GET',
-          url:teamList() + '?pageSize=30&page=' + page,
+          url:teamList() + '?size=30&page=' + page,
           dataType: 'JSON',
           contentType: 'application/json;charset=UTF-8',
         }).then((res) => {
+          this.totalPages = res.data.data.totalPages * 30;
+          this.pageNow = page;
           this.data1 = res.data.data.content;
         }).catch((error) => {
           this.$message.error(error.message);

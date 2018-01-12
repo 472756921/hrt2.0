@@ -34,7 +34,12 @@ export const getFlagList = function () {
   const API = host + URL;
   return API;
 };
-
+// 删除滚动公告
+export const delFlag = function () {
+  const URL = '/announcement/deleteRollAnnouncementById';
+  const API = host + URL;
+  return API;
+};
 
 //团队列表
 export const teamList = function () {

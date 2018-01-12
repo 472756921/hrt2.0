@@ -3,6 +3,7 @@
     <h2>滚动公告管理</h2>
     <Button type="primary" style="margin: 10px 0" @click="addAn=true">添加公告</Button>
     <Table :columns="columns1" :data="data1"></Table>
+    <Page :total="totalPages" :page-size="30" :current='pageNow' style="margin: 30px auto 10px;text-align: center" @on-change="changPage"></Page>
     <Modal v-model="addAn" title="添加滚动公告" @on-ok="ok">
       <span>公告类型：</span>
       <Select v-model="classes" style="width:300px;">
@@ -19,12 +20,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getFlagList, getList, setFlag } from '../../interface';
+  import { getFlagList, getList, setFlag, delFlag } from '../../interface';
 
   export default {
     name: 'scroll',
     data () {
       return {
+        pageNow: 1,
+        totalPages: '',
         adTitle: '',
         classes: '',
         addAn: false,
@@ -52,7 +55,7 @@
                   },
                   on: {
                     click: () => {
-                      this.del(params.index)
+                      this.del(params.index, params.row.id)
                     }
                   }
                 }, '删除'),
@@ -133,12 +136,24 @@
           });
         }
       },
-      del(i) {
+      del(i, id) {
         let mess = confirm('确认删除？删除后，该条公告将不再滚动显示');
         if (mess) {
-          this.data1.splice(i, 1);
-          this.$Message.success('删除成功');
+          this.$ajax({
+            method: 'delete',
+            url:delFlag() + '?id=' + id,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            this.data1.splice(i, 1);
+            this.$Message.success('删除成功');
+          }).catch((error) => {
+            this.$message.error(error.message);
+          });
         }
+      },
+      changPage(pageNew) {
+        this.getList(pageNew, 1);
       },
       getList(page, type) {
         let URL = getList() + '/' + type + '?size=30&page=' + page;
@@ -153,6 +168,8 @@
         }).then((res) => {
           if (type == 1) {
             this.data1 = res.data.data.content;
+            this.totalPages = res.data.data.totalPages * 30;
+            this.pageNow = page;
           } else {
             this.amlist = res.data.data.content;
           }

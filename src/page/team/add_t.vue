@@ -12,7 +12,7 @@
       </div>
       <div class="item">健管师：
         <Select v-model="admin" style="width: 289px; margin-left: 10px" filterable ref="adminName" :placeholder="this.editData.healthName">
-          <Option value="it.id" v-for="(it, i) in HTL" :key="i">
+          <Option :value="it.id" v-for="(it, i) in HTL" :key="i">
             <span>{{it.name}}</span>
             <span style="float:right;color:#ccc">{{it.phone}}</span>
           </Option>
@@ -29,7 +29,7 @@
         <Input v-model="teamInt" type="textarea" :rows="4"  />
       </div>
       <div>当前头像：</div>
-      <img src="this.editData.image.url" width="300" height="200" v-if="status==1&&imgNochange"/>
+      <img :src="editData.image.url" width="300" height="200" v-if="status==1&&imgNochange"/>
       <uplode :type="2" @getImgUrl="getImgUrl"/>
       <span>建议尺寸 300*200</span>
       <br/>
@@ -109,16 +109,24 @@
             contentType: 'application/json;charset=UTF-8',
           }).then((res) => {
             if (this.status == 0) {
-              this.$Message.success('添加成功');
+              if(res.data.msg == '成功') {
+                this.$Message.success('添加成功');
+              } else {
+                this.$message.error('网络延迟，请稍后再试');
+              }
             } else {
-              this.$Message.success('修改成功');
+              if(res.data.msg == '成功') {
+                this.$Message.success('修改成功');
+              } else {
+                this.$message.error('网络延迟，请稍后再试');
+              }
             }
           }).catch((error) => {
             this.$message.error(error.message);
           });
         },
         check() {
-          if( this.name == '' ||  this.type == '' || this.doctorName == '' || this.zc == '' || this.teamInt == '' || this.docInt == '' || this.imgID == '') {
+          if( this.name == '' ||  this.type == '' || this.doctorName == '' || this.zc == '' || this.teamInt == '' || this.docInt == '' || this.imgID == '' || this.imgID == null) {
             this.$Message.warning('请完整填写团队信息');
             return false;
           } else {
@@ -136,7 +144,7 @@
               "id": this.type,
             },
             "healthTeacher":{
-              "id":1
+              "id": this.admin,
             },
             "doctorName": this.doctorName,
             "position": this.zc,
@@ -153,7 +161,7 @@
               "id": this.type,
             },
             "healthTeacher":{
-              "id":1
+              "id":this.admin,
             },
             "doctorName": this.doctorName,
             "position": this.zc,
