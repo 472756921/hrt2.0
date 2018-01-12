@@ -19,7 +19,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getList } from '../../interface';
+  import { getFlagList, getList, setFlag } from '../../interface';
 
   export default {
     name: 'scroll',
@@ -35,7 +35,7 @@
           },
           {
             title: '发布时间',
-            key: 'date'
+            key: 'addTime'
           },
           {
             title: '操作',
@@ -105,7 +105,7 @@
       }
     },
     created() {
-      this.getList(1, 2);
+      this.getList(1, 1);
     },
     watch: {
       classes: 'changeType',
@@ -114,17 +114,23 @@
       show(i) {
         this.$Notice.open({
           title: i.row.title,
-          desc: 'Here is the notification description. Here is the notification description. ',
+          desc: i.row.content,
         });
       },
       ok() {
         let mess = confirm('确认设置该条公告滚动显示？');
         if (mess) {
-          this.data1.push( {
-            title: 'new Message',
-            date: '2018-01-04'
-          })
-          this.$Message.success('设置成功');
+          this.$ajax({
+            method: 'GET',
+            url:setFlag() + '?id=' + this.adTitle,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            this.$Message.success('设置成功');
+            this.getList(1, 1);
+          }).catch((error) => {
+            this.$message.error(error.message);
+          });
         }
       },
       del(i) {
@@ -135,9 +141,13 @@
         }
       },
       getList(page, type) {
+        let URL = getList() + '/' + type + '?size=30&page=' + page;
+        if(type == 1) {
+          URL = getFlagList() + '?size=30&page=' + page;;
+        }
         this.$ajax({
           method: 'GET',
-          url:getList() + '/' + type + '?pageSize=30&page=' + page,
+          url:URL,
           dataType: 'JSON',
           contentType: 'application/json;charset=UTF-8',
         }).then((res) => {

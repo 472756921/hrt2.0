@@ -11,7 +11,7 @@
         </Select>
       </div>
       <div class="item">健管师：
-        <Select v-model="admin" style="width: 289px; margin-left: 10px" filterable>
+        <Select v-model="admin" style="width: 289px; margin-left: 10px" filterable ref="adminName" :placeholder="this.editData.healthName">
           <Option value="it.id" v-for="(it, i) in HTL" :key="i">
             <span>{{it.name}}</span>
             <span style="float:right;color:#ccc">{{it.phone}}</span>
@@ -28,12 +28,13 @@
         团队简介：
         <Input v-model="teamInt" type="textarea" :rows="4"  />
       </div>
+      <div>当前头像：</div>
+      <img src="this.editData.image.url" width="300" height="200" v-if="status==1&&imgNochange"/>
       <uplode :type="2" @getImgUrl="getImgUrl"/>
       <span>建议尺寸 300*200</span>
       <br/>
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==1">修改团队</Button>
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==0">添加团队</Button>
-      {{this.editData}}
     </div>
 </template>
 
@@ -57,6 +58,8 @@
           imgID: '',
           HTL: [],
           editData: '',
+          teamID: '',
+          imgNochange: true,
         }
       },
       created() {
@@ -64,10 +67,16 @@
         if (this.$route.params.editData != null) {
           this.editData = this.$route.params.editData;
           this.status = 1;
-
           this.docInt = this.editData.doctorRemarks;
           this.teamInt = this.editData.remarks;
           this.admin = this.editData.healthTeacherId;
+          this.doctorName = this.editData.doctorName;
+          this.zc = this.editData.position;
+          this.teamInt = this.editData.remarks;
+          this.docInt = this.editData.doctorRemarks;
+          this.name = this.editData.name;
+          this.teamID = this.editData.id;
+          this.imgID = this.editData.image.id;
         }
       },
       methods: {
@@ -87,8 +96,41 @@
           if(!this.check()) {
             return false;
           }
-
-          let data = {
+          let data = this.getDateStatus();
+          let URL = teamAdd();
+          if (this.status == 1) {
+            URL = teamedit();
+          }
+          this.$ajax({
+            method: 'POST',
+            url: URL,
+            dataType: 'JSON',
+            data: data,
+            contentType: 'application/json;charset=UTF-8',
+          }).then((res) => {
+            if (this.status == 0) {
+              this.$Message.success('添加成功');
+            } else {
+              this.$Message.success('修改成功');
+            }
+          }).catch((error) => {
+            this.$message.error(error.message);
+          });
+        },
+        check() {
+          if( this.name == '' ||  this.type == '' || this.doctorName == '' || this.zc == '' || this.teamInt == '' || this.docInt == '' || this.imgID == '') {
+            this.$Message.warning('请完整填写团队信息');
+            return false;
+          } else {
+            return true;
+          }
+        },
+        getImgUrl(data) {
+          this.imgID = data;
+          this.imgNochange = false;
+        },
+        getDateStatus() {
+          let dataSave = {
             "name": this.name,
             "teamType":{
               "id": this.type,
@@ -104,27 +146,30 @@
               "id": this.imgID,
             }
           };
-
-          this.$ajax({
-            method: 'POST',
-            url:teamAdd(),
-            dataType: 'JSON',
-            data: data,
-            contentType: 'application/json;charset=UTF-8',
-          }).then((res) => {
-            this.$Message.success('添加成功');
-          }).catch((error) => {
-            this.$message.error(error.message);
-          });
-        },
-        check() {
-          if( this.name == '' ||  this.type == '' || this.doctorName == '' || this.zc == '' || this.teamInt == '' || this.docInt == '' || this.imgID == '') {
-            this.$Message.warning('请完整填写团队信息');
-            return false;
+          let dataEdit = {
+            "id" : this.teamID,
+            "name": this.name,
+            "teamType":{
+              "id": this.type,
+            },
+            "healthTeacher":{
+              "id":1
+            },
+            "doctorName": this.doctorName,
+            "position": this.zc,
+            "remarks": this.teamInt,
+            "doctorRemarks": this.docInt,
+            "icon":{
+              "id": this.imgID,
+            }
+          };
+          if (this.status == 0) {
+            return dataSave;
+          } else if (this.status == 1) {
+            return dataEdit;
+          } else {
+            return 'no';
           }
-        },
-        getImgUrl(data) {
-          this.imgID = data;
         },
       }
     };

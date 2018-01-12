@@ -52,7 +52,14 @@
           },
           {
             title: '团队',
-            key: 'teams'
+            key: 'teams',
+            render: (h, p) => {
+              if (p.row.teams == '') {
+                return '暂未分配团队';
+              } else {
+                return p.row.teams;
+              }
+            },
           },
           {
             title: '操作',
@@ -98,7 +105,7 @@
                   },
                   on: {
                     click: () => {
-                      this.edit(params.row.id)
+                      this.edit(params.row)
                     }
                   }
                 }, '编辑'),
@@ -129,7 +136,8 @@
         this.teamShow = true;
         this.message = i.row;
       },
-      edit() {},
+      edit(p) {
+        this.$router.push({ name:'add_m', params:{ editData: p } });},
       del(i, id) {
         console.log(id);
         let mess = confirm('确认删除？');

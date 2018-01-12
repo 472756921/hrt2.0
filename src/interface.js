@@ -22,6 +22,18 @@ export const delan = function () {
   const API = host + URL;
   return API;
 };
+// 设置滚动公告
+export const setFlag = function () {
+  const URL = '/announcement/setFlagAnnouncementById';
+  const API = host + URL;
+  return API;
+};
+// 获取滚动公告列表
+export const getFlagList = function () {
+  const URL = '/announcement/getRollAnnouncement';
+  const API = host + URL;
+  return API;
+};
 
 
 //团队列表

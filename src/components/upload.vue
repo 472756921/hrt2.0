@@ -1,7 +1,7 @@
 <template>
   <Upload :action="uploadImgs()" style="margin: 10px 0" :on-success="handleSuccess">
-    <div class="imgContent">
-      <img :src='img' width="300" height="200" v-if="img!=''"/>
+    <div class="imgContent" v-if="img!=''">
+      <img :src='img' width="300" height="200"/>
     </div>
     <br/>
     <Button type="ghost" icon="ios-cloud-upload-outline">{{text}}</Button>

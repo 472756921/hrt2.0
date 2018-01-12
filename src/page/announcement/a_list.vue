@@ -127,7 +127,7 @@
         getList(page) {
           this.$ajax({
             method: 'GET',
-            url:getList() + '/' + this.classes + '?pageSize=30&page=' + page,
+            url:getList() + '/' + this.classes + '?size=30&page=' + page,
             dataType: 'JSON',
             contentType: 'application/json;charset=UTF-8',
           }).then((res) => {
