@@ -35,7 +35,7 @@
         return uploadImg();
       },
       handleSuccess(res, file) {
-        this.img =  'http://118.31.38.185/' + res.data.url;
+        this.img =  'http://localhost:8001/' + res.data.url;
         this.$emit('getImgUrl',res.data.id);
       },
     }

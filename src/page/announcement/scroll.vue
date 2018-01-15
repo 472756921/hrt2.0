@@ -86,14 +86,14 @@
             value: '3',
             label: '公司动态'
           },
-          {
-            value: '4',
-            label: '专家团队'
-          },
-          {
-            value: '5',
-            label: '团队活动'
-          },
+          // {
+          //   value: '4',
+          //   label: '专家团队'
+          // },
+          // {
+          //   value: '5',
+          //   label: '团队活动'
+          // },
           {
             value: '6',
             label: '团队面诊时间'

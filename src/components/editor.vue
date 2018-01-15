@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="myEditor" style="width:1000px;height:240px;"></div>
+    <script id="editor" type="text/plain" style="width:980px;height:300px;"></script>
   </div>
 </template>
 
@@ -8,10 +8,10 @@
   export default {
     name: 'editor',
     mounted(){
-      let um = UM.getEditor('myEditor');
+      let ue = UE.getEditor('editor');
     },
     destroyed () {
-      UM.delEditor('myEditor');
+      UE.delEditor('editor');
     },
     data(){
       return {
@@ -20,7 +20,7 @@
     },
     methods: {
       getInfo() {
-        return UM.getEditor('myEditor').getContent();
+        return UE.getEditor('editor').getContent();
       },
     },
   };

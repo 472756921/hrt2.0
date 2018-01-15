@@ -2,7 +2,8 @@
  * Created by Benson on 2018/1/8.
  */
 
-const host = 'http://118.31.38.185:8081/app/api';
+// const host = 'http://118.31.38.185:8081/app/api';
+const host = 'http://localhost:8081/app/api';
 
 //公告list
 export const getList = function () {

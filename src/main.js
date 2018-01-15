@@ -7,9 +7,8 @@ import axios from 'axios';
 import './style/animate.css'
 
 //百度编辑器
-import '../static/umeditor/themes/default/css/umeditor.css'
-import '../static/umeditor/umeditor.config.js'
-import '../static/umeditor/umeditor.min.js'
+import '../static/umeditor/ueditor.config.js'
+import '../static/umeditor/ueditor.all.min.js'
 import '../static/umeditor/lang/zh-cn/zh-cn.js'
 
 
