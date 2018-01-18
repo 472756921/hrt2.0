@@ -139,7 +139,6 @@
       edit(p) {
         this.$router.push({ name:'add_m', params:{ editData: p } });},
       del(i, id) {
-        console.log(id);
         let mess = confirm('确认删除？');
         if (mess) {
           this.$ajax({
@@ -153,7 +152,6 @@
           }).catch((error) => {
             this.$message.error('删除失败');
           });
-
         }
       },
       ok() {},

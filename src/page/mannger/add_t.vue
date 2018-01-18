@@ -24,6 +24,7 @@
       <div>当前头像：</div>
       <img :src="editData.icon.url" width="300" height="200" v-if="status==1&&imgNochange"/>
       <uplode :type="3" @getImgUrl="getImgUrl"/>
+      <span>建议尺寸 300*200</span><br/>
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==1">修改团队</Button>
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==0">添加团队</Button>
     </div>
