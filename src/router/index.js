@@ -21,6 +21,8 @@ import addarticle from '@/page/addarticle.vue';
 
 import login from '@/page/login.vue';
 
+import imageCat from '@/components/imgCat.vue';
+
 
 Vue.use(Router)
 
@@ -30,6 +32,11 @@ export default new Router({
       path: '/',
       name: 'login',
       component: login
+    },
+    {
+      path: '/imageCat',
+      name: 'imageCat',
+      component: imageCat
     },
     {
       path: '/cour',
