@@ -37,64 +37,35 @@
         let sendImgShow = document.getElementById('sendImgShow');
         let dv = document.getElementById('kk');
 
+        let x = 0, y = 0, l = 0, t = 0, maxH = 0, maxW = 0;
+        let isDown = false;
         imgAc.onload = function(){
-          this.maxH = imgAc.offsetHeight
-          this.maxW = imgAc.offsetWidth
+          maxH = imgAc.offsetHeight
+          maxW = imgAc.offsetWidth
         };
 
-        this.isDown = false;
+        dv.onmousedown = function(e) {
+          x = e.clientX;
+          y = e.clientY;
+          l = dv.offsetLeft;
+          t = dv.offsetTop;
+          isDown = true;
+        }
 
-        dv.onmousedown = this.onmousedown(e);
-
-        dv.onmousemove = this.onmousemove(e);
+        dv.onmousemove = function(e) {
+          if (isDown == false) {
+            return false;
+          } else {
+            chang(e);
+          }
+        }
 
         dv.onmouseup = function() {
-          //开关关闭
           isDown = false;
         }
-        content.onmousewheel = function(event) {
-          let b = imgAc.offsetWidth/imgAc.offsetHeight;
-          if (event.wheelDelta > 0) {
-            iamgeShow.style.height = imgAc.offsetHeight + 15 + 'px'
-            iamgeShow.style.width = imgAc.offsetWidth + 15*b + 'px'
-            sendImgShow.style.height = imgAc.offsetHeight + 15 + 'px'
-            sendImgShow.style.width = imgAc.offsetWidth + 15*b + 'px'
-            imgAc.style.height = imgAc.offsetHeight + 15 + 'px'
-            imgAc.style.width = imgAc.offsetWidth + 15*b + 'px'
-            maxH = imgAc.offsetHeight
-            maxW = imgAc.offsetWidth
-          } else if (event.wheelDelta < 0) {
-            if (imgAc.offsetHeight < 210 || imgAc.offsetWidth < 310) {
-              return false
-            }
-            iamgeShow.style.height = imgAc.offsetHeight - 15 + 'px'
-            iamgeShow.style.width = imgAc.offsetWidth - 15*b + 'px'
-            sendImgShow.style.height = imgAc.offsetHeight - 15 + 'px'
-            sendImgShow.style.width = imgAc.offsetWidth - 15*b + 'px'
-            imgAc.style.height = imgAc.offsetHeight - 15 + 'px'
-            imgAc.style.width = imgAc.offsetWidth - 15*b + 'px'
-            maxH = imgAc.offsetHeight
-            maxW = imgAc.offsetWidth
-          } else {
-            return;
-          }
-        };
-      },
-      methods: {
-        onmousedown(e) {
-          this.x = e.clientX;
-          this.y = e.clientY;
-          this.l = dv.offsetLeft;
-          this.t = dv.offsetTop;
-          this.isDown = true;
-        },
-        onmousemove(e) {
-          if (this.isDown == false) {
-            return;
-          }
-          this.chang(e)
-        },
-        chang(e) {
+
+        function chang(e) {
+
           let nx = e.clientX;
           let ny = e.clientY;
           //计算移动后的左偏移量和顶部的偏移量
@@ -111,7 +82,39 @@
             iamgeShow.style.marginTop =  -nt + 'px';
             sendImgShow.style.marginTop =  -nt + 'px';
           }
-        },
+        };
+
+        content.onmousewheel = function(event) {
+          let b = imgAc.offsetWidth/imgAc.offsetHeight;
+          if (event.wheelDelta > 0) {
+            iamgeShow.style.height = imgAc.offsetHeight + 15 + 'px'
+            iamgeShow.style.width = imgAc.offsetWidth + 15*b + 'px'
+            sendImgShow.style.height = imgAc.offsetHeight + 15 + 'px'
+            sendImgShow.style.width = imgAc.offsetWidth + 15*b + 'px'
+            imgAc.style.height = imgAc.offsetHeight + 15 + 'px'
+            imgAc.style.width = imgAc.offsetWidth + 15*b + 'px'
+            imgAc.style.marginLeft = imgAc.offsetLeft - 7.5 + 'px'
+            maxH = imgAc.offsetHeight
+            maxW = imgAc.offsetWidth
+          } else if (event.wheelDelta < 0) {
+            if (imgAc.offsetHeight < 210 || imgAc.offsetWidth < 310 || imgAc.offsetWidth  < (dv.offsetLeft + 320) ||  imgAc.offsetHeight  < (dv.offsetTop + 220)) {
+              return false
+            }
+            iamgeShow.style.height = imgAc.offsetHeight - 15 + 'px'
+            iamgeShow.style.width = imgAc.offsetWidth - 15*b + 'px'
+            sendImgShow.style.height = imgAc.offsetHeight - 15 + 'px'
+            sendImgShow.style.width = imgAc.offsetWidth - 15*b + 'px'
+            imgAc.style.height = imgAc.offsetHeight - 15 + 'px'
+            imgAc.style.width = imgAc.offsetWidth - 15*b + 'px'
+            imgAc.style.marginLeft = imgAc.offsetLeft + 7.5 + 'px'
+            maxH = imgAc.offsetHeight
+            maxW = imgAc.offsetWidth
+          } else {
+            return;
+          }
+        };
+      },
+      methods: {
         upload() {
         },
         getMessage() {
@@ -123,6 +126,8 @@
           reader.readAsDataURL(file.files[0]);
           reader.onload = (e) => {
             this.img = e.target.result;
+            let imgAc = document.getElementById('imgAc');
+            imgAc.style.width = '100%';
           }
         },
       },
