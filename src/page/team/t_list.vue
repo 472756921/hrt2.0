@@ -36,6 +36,10 @@
             key: 'name'
           },
           {
+            title: '医生',
+            key: 'doctorName',
+          },
+          {
             title: '健管师',
             key: 'healthName'
           },

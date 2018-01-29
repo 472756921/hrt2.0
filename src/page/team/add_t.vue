@@ -48,7 +48,7 @@
       data() {
         return {
           status: 0,    //0  create    1  edit
-          type: '1',
+          type: '',
           teamInt: '',
           docInt: '',
           doctorName: '',
@@ -77,6 +77,7 @@
           this.name = this.editData.name;
           this.teamID = this.editData.id;
           this.imgID = this.editData.image.id;
+          this.type = this.editData.teamType.id.toString();
         }
       },
       methods: {
