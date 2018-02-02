@@ -17,7 +17,7 @@
             <MenuItem name="/a_list/company"><Icon type="briefcase"></Icon><span>公司动态</span></MenuItem>
             <!--<MenuItem name="/a_list/team"><Icon type="android-contacts"></Icon><span>专家团队</span></MenuItem>-->
             <!--<MenuItem name="/a_list/culb"><Icon type="happy"></Icon><span>团队活动通知</span></MenuItem>-->
-            <MenuItem name="/a_list/date"><Icon type="ios-alarm-outline"></Icon><span title="团队面诊时间设置">团队面诊时间设置</span></MenuItem>
+            <!--<MenuItem name="/a_list/date"><Icon type="ios-alarm-outline"></Icon><span title="团队面诊时间设置">团队面诊时间设置</span></MenuItem>-->
             <MenuItem name="/a_list/remb"><Icon type="ios-basketball"></Icon><span title="往期活动回顾">往期活动回顾</span></MenuItem>
             <MenuItem name="/addAn"><Icon type="edit"></Icon><span>添加资讯</span></MenuItem>
           </Submenu>

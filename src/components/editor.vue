@@ -20,8 +20,7 @@
     },
     methods: {
       getInfo() {
-        console.log(UE.getEditor('editor').getContent())
-//        return UE.getEditor('editor').getContent();
+       return UE.getEditor('editor').getContent();
       },
     },
   };
