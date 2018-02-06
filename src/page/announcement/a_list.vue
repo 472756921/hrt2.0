@@ -3,6 +3,10 @@
       <h2>{{this.title}}管理</h2>
       <Table :columns="columns1" :data="data1"></Table>
       <Page :total="totalPages" :page-size="30" :current='pageNow' style="margin: 30px auto 10px;text-align: center" @on-change="changPage"></Page>
+
+      <Modal v-model="modal1" title="详情" width="40%">
+        <div v-html="message"></div>
+      </Modal>
     </div>
 </template>
 
@@ -19,10 +23,12 @@
       },
       data () {
         return {
+          message: '',
           pageNow: 1,
           totalPages: '',
           totle: '',
           addAn: false,
+          modal1: false,
           title: '',
           classes: '1',
           columns1: [
@@ -99,7 +105,7 @@
               this.classes = 6;
               break;
             case 'remb':
-              this.title = '活动记录';
+              this.title = '往期活动回顾';
               this.classes = 7;
               break;
           }
@@ -109,7 +115,7 @@
           let mess = confirm('确认删除？');
           if (mess) {
             this.$ajax({
-              method: 'GET',
+              method: 'delete',
               url:delan() +"?id=" + id,
               dataType: 'JSON',
               contentType: 'application/json;charset=UTF-8',
@@ -122,10 +128,8 @@
           }
         },
         show(i) {
-          this.$Notice.open({
-            title: i.row.title,
-            desc: i.row.content,
-          });
+          this.modal1 = true;
+          this.message = i.row.content;
         },
         changPage(pageNew) {
           this.getList(pageNew);

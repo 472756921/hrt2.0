@@ -26,6 +26,7 @@
         auther: '管理员',
         title: '',
         classes: '2',
+        fbf: true,
         cityList: [
           {
             value: '2',
@@ -43,10 +44,10 @@
           //   value: '5',
           //   label: '团队活动'
           // },
-          {
-            value: '6',
-            label: '团队面诊时间'
-          },
+          // {
+          //   value: '6',
+          //   label: '团队面诊时间'
+          // },
           {
             value: '7',
             label: '往期活动回顾'
@@ -56,6 +57,9 @@
     },
     methods: {
       addan() {
+        if(!this.fbf) {
+          return false;
+        }
         if(this.$refs.editor.getInfo() == '' || this.$refs.editor.getInfo() == null) {
           this.$Message.error('请输入文章内容');
           return false;
@@ -79,6 +83,8 @@
           contentType: 'application/json;charset=UTF-8',
         }).then((res) => {
           this.data1 = res.data.data;
+          this.$Message.success('发布成功');
+          this.fbf = false;
         }).catch((error) => {
           this.$message.error(error.message);
         });

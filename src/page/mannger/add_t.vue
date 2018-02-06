@@ -110,9 +110,7 @@
             phone: this.phone,
             education: this.xl,
             gender: this.sex,
-            icon: {
-              id: this.icon,
-            },
+            icon: this.icon,
             id: this.tID,
           };
           if (this.status == 0) {
