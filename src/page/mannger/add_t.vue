@@ -67,7 +67,7 @@
       },
       methods: {
         getImgUrl(data) {
-          this.icon = data;
+          this.icon = {id: data};
           this.imgNochange = false;
         },
         addan() {
@@ -100,9 +100,7 @@
             education: this.xl,
             gender: this.sex,
             idNumber: this.idNumber,
-            icon: {
-              id: this.icon,
-            },
+            icon: this.icon,
           };
           let dataEdit = {
             remarks: this.teamInt,

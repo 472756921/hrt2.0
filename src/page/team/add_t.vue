@@ -135,7 +135,7 @@
           }
         },
         getImgUrl(data) {
-          this.imgID = data;
+          this.imgID = {id: data};
           this.imgNochange = false;
         },
         getDateStatus() {
@@ -151,9 +151,7 @@
             "position": this.zc,
             "remarks": this.teamInt,
             "doctorRemarks": this.docInt,
-            "icon":{
-              "id": this.imgID,
-            }
+            "icon": this.imgID,
           };
           let dataEdit = {
             "id" : this.teamID,
@@ -168,9 +166,7 @@
             "position": this.zc,
             "remarks": this.teamInt,
             "doctorRemarks": this.docInt,
-            "icon":{
-              "id": this.imgID,
-            }
+            "icon": this.imgID,
           };
           if (this.status == 0) {
             return dataSave;
