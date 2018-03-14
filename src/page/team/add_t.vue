@@ -135,18 +135,14 @@
           }
         },
         getImgUrl(data) {
-          this.imgID = {id: data};
+          this.imgID = data;
           this.imgNochange = false;
         },
         getDateStatus() {
           let dataSave = {
             "name": this.name,
-            "teamType":{
-              "id": this.type,
-            },
-            "healthTeacher":{
-              "id": this.admin,
-            },
+            "teamType": this.type,
+            "healthTeacher": this.admin,
             "doctorName": this.doctorName,
             "position": this.zc,
             "remarks": this.teamInt,
@@ -156,12 +152,8 @@
           let dataEdit = {
             "id" : this.teamID,
             "name": this.name,
-            "teamType":{
-              "id": this.type,
-            },
-            "healthTeacher":{
-              "id":this.admin,
-            },
+            "teamType": this.type,
+            "healthTeacher": this.admin,
             "doctorName": this.doctorName,
             "position": this.zc,
             "remarks": this.teamInt,

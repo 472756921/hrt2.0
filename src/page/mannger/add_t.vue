@@ -3,8 +3,8 @@
       <h2 v-if="status==0">添加健管师</h2>
       <h2 v-if="status==1">修改健管师</h2>
       <div class="item">姓名：<Input v-model="name" style="width: 300px;"/></div>
-      <div class="item">电话：<Input v-model="phone" style="width: 300px;"/></div>
-      <div class="item">学历：<Input v-model="xl" style="width: 300px;"/></div>
+      <div class="item">电话：<Input v-model="phone" style="width: 300px;" placeholder="请输入确保能联系的号码"/></div>
+      <div class="item">学历：<Input v-model="xl" style="width: 300px;" placeholder="大专、本科、研究生"/></div>
       <div class="item" v-if="status==0">身份证号码：<Input v-model="idNumber " style="width: 258px;"/></div>
       性别：
       <RadioGroup v-model="sex">
@@ -25,6 +25,12 @@
       <img :src="editData.icon.url" width="300" height="200" v-if="status==1&&imgNochange"/>
       <uplode :type="3" @getImgUrl="getImgUrl"/>
       <span>建议尺寸 300*200</span><br/>
+
+      <br/>
+      <div>健管师登录信息<span style="color: red;">（请牢记该信息，并提供给健管师）</span></div>
+      <div class="item" v-if="status==0">账号：<Input v-model="accounts" style="width: 300px;"/></div>
+      <div class="item" v-if="status==0">密码：<Input v-model="pwd" type="password" style="width: 300px;"/></div>
+
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==1">修改健管师</Button>
       <Button type="primary" style="margin: 10px 0" @click="addan"  v-if="status==0">添加健管师</Button>
     </div>
@@ -39,6 +45,8 @@
       components: { uplode },
       data() {
         return {
+          accounts: '',
+          pwd: '',
           imgNochange: true,
           phone: '',
           teamInt: '',
@@ -101,6 +109,8 @@
             gender: this.sex,
             idNumber: this.idNumber,
             icon: this.icon,
+            accounts: this.accounts,
+            pwd: this.pwd,
           };
           let dataEdit = {
             remarks: this.teamInt,

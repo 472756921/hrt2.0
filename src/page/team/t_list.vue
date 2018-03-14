@@ -13,8 +13,8 @@
       <div class="item Introduction">医生简介：<span class="info">{{showMessages.doctorRemarks}}</span></div>
       <div class="item Introduction">团队简介：<span class="info">{{showMessages.remarks}}</span></div>
       <div class="item">
-        <img :src= showMessages.image.url title="医生头像" alt="医生头像" width="200" height="130"/>
-        <img :src= showMessages.healthTeacherImg.url alt="健管师头像" title="健管师头像" width="200" height="130"/>
+        <img :src= showMessages.image.url title="医生头像" alt="医生头像" width="49%"/>
+        <img :src= showMessages.healthTeacherImg.url alt="健管师头像" title="健管师头像" width="49%" />
       </div>
     </Modal>
   </div>
